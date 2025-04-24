@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Recuperar Senha</h2>
+
+    <form id="recoverForm">
+        <input type="email" id="recoverEmail" placeholder="Digite seu e-mail cadastrado" required>
+        <button type="submit">Recuperar</button>
+        <p id="recoverMessage"></p>
+    </form>
+
+    <a href="login.html">Voltar para o login</a>
+
+    <script>
+        const recoverForm = document.getElementById('recoverForm');
+        const recoverMessage = document.getElementById('recoverMessage');
+
+        recoverForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('recoverEmail').value.trim();
+
+            if (!email) {
+                recoverMessage.textContent = 'Digite seu e-mail.';
+                recoverMessage.classList.add('error');
+                return;
+            }
+
+            const userData = localStorage.getItem('user_' + email);
+
+            if (userData) {
+                recoverMessage.textContent = 'Enviamos um link de redefinição para seu e-mail (simulação).';
+                recoverMessage.classList.remove('error');
+                recoverMessage.classList.add('success');
+
+                // Simula redirecionamento após 2s
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            } else {
+                recoverMessage.textContent = 'E-mail não encontrado.';
+                recoverMessage.classList.add('error');
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</body>
+
+</html>
